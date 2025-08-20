@@ -1,0 +1,269 @@
+---
+title: "Fibroblasts Naive SI Gran"
+author: "A.DeMartin"
+date: "2025-08-18"
+output: 
+  html_document:
+    keep_md: true
+    toc: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+options(width = 100)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, dev = c("png", "pdf"))
+seed <- 1234
+```
+
+#### load packages
+```{r load packages}
+library(ExploreSCdataSeurat3)
+library(runSeurat3)
+library(Seurat)
+library(ggpubr)
+library(pheatmap)
+library(SingleCellExperiment)
+library(dplyr)
+library(tidyverse)
+library(viridis)
+library(muscat)
+library(circlize)
+library(destiny)
+library(scater)
+library(metap)
+library(multtest)
+library(clusterProfiler)
+library(org.Mm.eg.db)
+library(msigdbr)
+library(enrichplot)
+library(DOSE)
+library(grid)
+library(gridExtra)
+library(ggupset)
+library(VennDiagram)
+library(here)
+```
+
+#### load merged object allFb
+```{r}
+## load object merged allFb naive and d4
+basedir <- here()
+fileNam <- paste0(basedir, "/data/merged_allFb_naiveANDd4_seurat.rds")
+seuratFb <- readRDS(fileNam)
+```
+
+#### subset wt
+```{r}
+table(seuratFb$cond2)
+seuratwt <- subset(seuratFb, cond2 == "WT")
+table(seuratwt$cond2)
+
+seuratFb <- seuratwt
+```
+
+#### exclude glial cells
+```{r}
+## filter glial cells
+table(seuratFb$clustername)
+seuratFb_noglial <- subset(seuratFb, clustername == "Glial", invert = TRUE)
+table(seuratFb_noglial$clustername)
+
+seuratFb <- seuratFb_noglial
+```
+
+#### set color vectors 
+```{r}
+colcond2 <- c("#202547","#BE3144")
+names(colcond2) <- c("WT", "cko")
+
+colcond3 <- c("#B45B5C","#628395","#BF782D")
+names(colcond3) <- c("infectedD4", "naive", "granulomaD4")
+
+colclustername <- c("#355C7D", "#8E9B97","#99B898","#E84A5F","#0F1F38","#F8B195","#727077","#FF847C","#C06C84")
+names(colclustername) <- c("PdgfraloFb1" ,"PdgfraloFb2", "Trophocytes","PdgfraloFb3", "Telocytes","Myocytes", "Pdgfrahi", "PdgfraloFb4", "Thy1Fb")
+```
+
+#### counts
+```{r}
+table(seuratFb_noglial$orig.ident)
+table(seuratFb_noglial$cond3)
+```
+
+### umaps 
+#### clustername
+```{r umaps clustername}
+## cluster name
+Idents(seuratFb) <- seuratFb$clustername
+DimPlot(seuratFb, reduction= "umap", cols = colclustername)
+DimPlot(seuratFb, reduction= "umap", cols = colclustername) + theme(legend.position = "none")
+```
+
+#### conditions
+```{r umaps conditions no glial}
+Idents(seuratFb) <- seuratFb$cond3
+DimPlot(seuratFb, reduction= "umap", cols = colcond3, shuffle = T)
+DimPlot(seuratFb, reduction= "umap", cols = colcond3, shuffle = T) + theme(legend.position = "none")
+
+colcond3 <- c("lightgrey","lightgrey","#BF782D")
+names(colcond3) <- c("infectedD4", "naive", "granulomaD4")
+DimPlot(seuratFb, reduction= "umap", cols = colcond3, order = "granulomaD4")
+DimPlot(seuratFb, reduction= "umap", cols = colcond3, order = "granulomaD4") + theme(legend.position = "none")
+
+colcond3 <- c("lightgrey","#628395","lightgrey")
+names(colcond3) <- c("infectedD4", "naive", "granulomaD4")
+DimPlot(seuratFb, reduction= "umap", cols = colcond3, order = "naive")
+DimPlot(seuratFb, reduction= "umap", cols = colcond3, order = "naive") + theme(legend.position = "none")
+
+colcond3 <- c("#B45B5C","lightgrey","lightgrey")
+names(colcond3) <- c("infectedD4", "naive", "granulomaD4")
+DimPlot(seuratFb, reduction= "umap", cols = colcond3, order = "infectedD4")
+DimPlot(seuratFb, reduction= "umap", cols = colcond3, order = "infectedD4") + theme(legend.position = "none")
+
+colcond3 <- c("#B45B5C","#628395","#BF782D")
+names(colcond3) <- c("infectedD4", "naive", "granulomaD4")
+```
+
+### features
+```{r featureplot sel genes}
+genes <- data.frame(gene=rownames(seuratFb)) %>% 
+    mutate(geneID=gsub("^.*\\.", "", gene)) 
+
+selGenes <- data.frame(geneID=c("Pdpn","Pdgfra", "Acta2", "Cd34", "Cd81", "Ly6a", "Cd34")) %>% 
+  left_join(., genes, by = "geneID") 
+
+pList <- sapply(selGenes$gene, function(x){
+  p <- FeaturePlot(seuratFb, reduction = "umap", 
+            features = x, 
+            cols=c("lightgrey","#BE3144"), 
+            pt.size = 1) +
+  theme(legend.position="right")
+  plot(p)
+})
+
+pList <- sapply(selGenes$gene, function(x){
+  p <- FeaturePlot(seuratFb, reduction = "umap", 
+            features = x, 
+            cols=c("lightgrey","#BE3144"), 
+            pt.size = 1) +
+  theme(legend.position="none")
+  plot(p)
+})
+```
+
+### average heatmap - Fb top5 cluster marker
+```{r avg heatmap, fig.height=10, fig.width=8}
+##order
+Idents(seuratFb) <- seuratFb$clustername
+levels(seuratFb)
+
+seurat <- seuratFb
+avgHeatmap <- function(seurat, selGenes, colVecIdent, colVecCond=NULL,
+                       ordVec=NULL, gapVecR=NULL, gapVecC=NULL,cc=FALSE,
+                       cr=FALSE, condCol=FALSE){
+  
+  selGenes <- selGenes$gene
+  
+  ## assay data
+  clusterAssigned <- as.data.frame(Idents(seurat)) %>%
+  dplyr::mutate(cell=rownames(.))
+  colnames(clusterAssigned)[1] <- "ident"
+  seuratDat <- GetAssayData(seurat)
+  
+  ## genes of interest
+  genes <- data.frame(gene=rownames(seurat)) %>% 
+    mutate(geneID=gsub("^.*\\.", "", gene)) %>% filter(geneID %in% selGenes)
+
+  ## matrix with averaged cnts per ident
+  logNormExpres <- as.data.frame(t(as.matrix(
+    seuratDat[which(rownames(seuratDat) %in% genes$gene),])))
+  logNormExpres <- logNormExpres %>% dplyr::mutate(cell=rownames(.)) %>%
+    dplyr::left_join(.,clusterAssigned, by=c("cell")) %>%
+    dplyr::select(-cell) %>% dplyr::group_by(ident) %>%
+    dplyr::summarise_all(mean)
+  logNormExpresMa <- logNormExpres %>% dplyr::select(-ident) %>% as.matrix()
+  rownames(logNormExpresMa) <- logNormExpres$ident
+  logNormExpresMa <- t(logNormExpresMa)
+  rownames(logNormExpresMa) <- gsub("^.*?\\.","",rownames(logNormExpresMa))
+  
+  ## remove genes if they are all the same in all groups
+  ind <- apply(logNormExpresMa, 1, sd) == 0
+  logNormExpresMa <- logNormExpresMa[!ind,]
+  genes <- genes[!ind,]
+
+  ## color columns according to cluster
+  annotation_col <- as.data.frame(gsub("(^.*?_)","",
+                                       colnames(logNormExpresMa)))%>%
+    dplyr::mutate(celltype=gsub("(_.*$)","",colnames(logNormExpresMa)))
+  colnames(annotation_col)[1] <- "col1"
+  annotation_col <- annotation_col %>%
+    dplyr::mutate(cond = gsub("(^[0-9]_?)","",col1)) %>%
+    dplyr::select(cond, celltype)
+  rownames(annotation_col) <- colnames(logNormExpresMa) 
+
+  ann_colors = list(
+      cond = colVecCond,
+      celltype=colclustername)
+  if(is.null(ann_colors$cond)){
+    annotation_col$cond <- NULL
+  }
+  
+  ## adjust order
+  logNormExpresMa <- logNormExpresMa[selGenes,]
+  if(is.null(ordVec)){
+    ordVec <- levels(seurat)
+  }
+  logNormExpresMa <- logNormExpresMa[,ordVec]
+
+  ## scaled row-wise
+  pheatmap(logNormExpresMa, scale="row" ,treeheight_row = 0, cluster_rows = cr, 
+         cluster_cols = cc,
+         color = colorRampPalette(c("#2166AC", "#F7F7F7", "#B2182B"))(50),
+         annotation_col = annotation_col, cellwidth=15, cellheight=10,
+         annotation_colors = ann_colors, gaps_row = gapVecR, gaps_col = gapVecC)
+}
+
+genesPlot <- data.frame(gene=c("Rgs5", "Apcdd1", "Timp3", "Cd34", "Shisa3", "Igfbp3", "Mmp10", "Agt", "Lpl", "Fhl2", "Cxcl5", "Chl1", "Serpina3g", "Ecscr", "Slc15a3", "Itga8", "P2rx1", "Tmem178", "Plvap", "Il34", "Cd81", "Ackr4", "Ogn", "Pcolce2", "Scara5", "Sox6", "Kcnj8", "Tmem158", "Tspan13", "Bmp7", "Actg2", "Myh11", "Lmod1", "Npnt", "Tagln", "Ptn", "Tmem229a", "Fxyd6", "Chchd10", "Cox8b", "Pla1a", "Ace", "Ifi207", "Plau", "Prrx1"))
+
+levels(seurat)
+colVec <- colclustername
+
+avgHeatmap(seurat, selGenes = genesPlot, colVecIdent = colVec)
+```
+
+### marker dotplot Fb
+```{r dotplot fb, fig.height=4, fig.width=7}
+genes <- data.frame(gene=rownames(seuratFb)) %>% 
+  mutate(geneID=gsub("^.*\\.", "", gene))
+
+selGenes <- data.frame(geneID=c("Il33","Thy1","Ly6a","Acta2","Cd81","Cd34","Pdgfra","Pdpn")) %>% left_join(., genes, by="geneID")
+
+DotPlot(seuratFb, features = selGenes, group.by= "cluster_name") + RotatedAxis() + scale_color_viridis(option="E") + coord_flip()
+DotPlot(seuratFb, features = selGenes, group.by= "cluster_name") + RotatedAxis() + scale_color_viridis(option="F") + coord_flip()
+```
+
+### abundances
+```{r Fb abundance plot}
+## make count list according to cond3
+datList <- NULL
+for(con in unique(seuratFb$cond3)){
+  seuratSub <- subset(seuratFb, cond3==con)
+  print(dim(seuratSub))
+  dat_con <- as.data.frame(table(seuratSub$clustername)) %>%
+  mutate(percent=Freq/ncol(seuratSub)) %>% mutate(cond=con)
+  datList[[con]] <- dat_con
+}
+dat_all <- do.call("rbind", datList)
+
+##order x
+ordX <-  c("naive", "infectedD4", "granulomaD4") 
+
+## plot abundance
+ggbarplot(dat_all, x= "cond", y= "percent", fill = "Var1", legend = "right", legend.titel = "clustername", ylab = "frequency", palette = colclustername) + scale_x_discrete(limits=ordX)
+```
+
+#### session info
+```{r date and session info}
+date()
+sessionInfo()
+```
