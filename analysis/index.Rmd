@@ -25,3 +25,7 @@ FRC signatures
 ### GranulomaAll
 Granuloma all cells
 [link](GranulomaAll.html)
+
+### GranulomaMph
+Granuloma macrophages
+[link](GranulomaMph.html)
