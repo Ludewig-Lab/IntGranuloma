@@ -382,7 +382,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-08-21
+<strong>Last updated:</strong> 2025-08-22
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -420,10 +420,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -516,15 +516,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLudewigLabIntGranulomatree954889a981747be3264c7374f654b0166bb7b5aftargetblank954889aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLudewigLabIntGranulomatreea90907d33a3b88ec16743fa3058db3e77983b075targetblanka90907da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/Ludewig-Lab/IntGranuloma/tree/954889a981747be3264c7374f654b0166bb7b5af" target="_blank">954889a</a>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/tree/a90907d33a3b88ec16743fa3058db3e77983b075" target="_blank">a90907d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomLudewigLabIntGranulomatree954889a981747be3264c7374f654b0166bb7b5aftargetblank954889aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomLudewigLabIntGranulomatreea90907d33a3b88ec16743fa3058db3e77983b075targetblanka90907da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -534,7 +534,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/Ludewig-Lab/IntGranuloma/tree/954889a981747be3264c7374f654b0166bb7b5af" target="_blank">954889a</a>.
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/tree/a90907d33a3b88ec16743fa3058db3e77983b075" target="_blank">a90907d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -554,8 +554,11 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
-    Untracked:  analysis/GranulomaAll.Rmd
-    Untracked:  analysis/GranulomaMph.Rmd
+    Untracked:  analysis/CellChatGran.Rmd
+
+Unstaged changes:
+    Modified:   analysis/GranulomaAll.Rmd
+    Modified:   analysis/GranulomaMph.Rmd
 
 </code></pre>
 <p>
@@ -571,9 +574,72 @@ have uncommitted changes.
 </div>
 <div id="versions" class="tab-pane fade">
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/GranulomaAll.Rmd</code>) and HTML
+(<code>docs/GranulomaAll.html</code>) files. If you’ve configured a
+remote Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/analysis/GranulomaAll.Rmd" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+<td>
+Aug25
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Ludewig-Lab/IntGranuloma/ac89adb027080acdc727ef0636b7342b330460bb/docs/GranulomaAll.html" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+<td>
+Aug25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -708,19 +774,19 @@ seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;10&quot; )] &lt;- &
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;11&quot; )] &lt;- &quot;CD8Tcell2&quot;
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;12&quot; )] &lt;- &quot;Mph3&quot;
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;13&quot; )] &lt;- &quot;Trophocytes&quot;
-seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;14&quot; )] &lt;- &quot;PdgfrahiLy6anegFb&quot;
+seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;14&quot; )] &lt;- &quot;PdgfrahiFb&quot;
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;15&quot; )] &lt;- &quot;IgABcell2&quot;
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;16&quot; )] &lt;- &quot;Myocytes&quot;
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;17&quot; )] &lt;- &quot;PdgfraloFb2&quot;
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;18&quot; )] &lt;- &quot;IgDBcell&quot;
-seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;19&quot; )] &lt;- &quot;NC&quot;
+seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;19&quot; )] &lt;- &quot;Glial&quot;
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% &quot;20&quot; )] &lt;- &quot;ICC&quot;
 table(seurat$cluster_name)
 table(seurat$RNA_snn_res.0.25)
 
 ## order
 Idents(seurat) &lt;- seurat$cluster_name
-seurat$cluster_name &lt;- factor(seurat$cluster_name, levels=c(&quot;CD8Tcell1&quot;,&quot;CD8Tcell2&quot;,&quot;NKcell&quot;, &quot;CD4Tcell/ILC2&quot;,&quot;Neut&quot;, &quot;Mph1&quot;,&quot;Mph2&quot;, &quot;Mph3&quot;,&quot;DC&quot;,&quot;IgABcell1&quot;,&quot;IgABcell2&quot;,&quot;IgDBcell&quot;,&quot;PdgfraloFb1&quot;,&quot;PdgfraloFb2&quot;, &quot;Trophocytes&quot;, &quot;Telocytes&quot;, &quot;Myocytes&quot;, &quot;PdgfrahiLy6anegFb&quot;, &quot;NC&quot;, &quot;LEC&quot;, &quot;ICC&quot;))
+seurat$cluster_name &lt;- factor(seurat$cluster_name, levels=c(&quot;CD8Tcell1&quot;,&quot;CD8Tcell2&quot;,&quot;NKcell&quot;, &quot;CD4Tcell/ILC2&quot;,&quot;Neut&quot;, &quot;Mph1&quot;,&quot;Mph2&quot;, &quot;Mph3&quot;,&quot;DC&quot;,&quot;IgABcell1&quot;,&quot;IgABcell2&quot;,&quot;IgDBcell&quot;,&quot;PdgfraloFb1&quot;,&quot;PdgfraloFb2&quot;, &quot;Trophocytes&quot;, &quot;Telocytes&quot;, &quot;Myocytes&quot;, &quot;PdgfrahiFb&quot;, &quot;Glial&quot;, &quot;LEC&quot;, &quot;ICC&quot;))
 Idents(seurat) &lt;- seurat$cluster_name
 table(seurat$cluster_name)
 
@@ -769,7 +835,7 @@ seurat &lt;- readRDS(fileNam)</code></pre>
 <h4>set color vectors</h4>
 <pre class="r"><code>## col clustername
 colclustername &lt;- c(&quot;#355C7D&quot;,&quot;#B1746FFF&quot;,&quot;#202547&quot;,&quot;#B09C85&quot;, &quot;#4e5a4c&quot;,&quot;#53354A&quot;,&quot;#2A363B&quot;,&quot;#8491B4FF&quot;,&quot;#00A087FF&quot;,&quot;#DC9989&quot;,&quot;#84ad83&quot;, &quot;#628395&quot;,&quot;#D33B44&quot;,&quot;#779d8d&quot;,&quot;#727077&quot;,&quot;#868686FF&quot;,&quot;#F8B195&quot;,&quot;#FF847C&quot;,&quot;#725663FF&quot;,&quot;#904D39&quot;,&quot;#91D1C2&quot;)
-names(colclustername) &lt;- c(&quot;PdgfraloFb1&quot;,&quot;Mph1&quot;, &quot;CD8Tcell1&quot;,&quot;Neut&quot;, &quot;IgABcell1&quot;, &quot;LEC&quot;, &quot;Telocytes&quot;, &quot;DC&quot;, &quot;CD4Tcell/ILC2&quot;, &quot;Mph2&quot;,  &quot;NKcell&quot;, &quot;CD8Tcell2&quot;, &quot;Mph3&quot;, &quot;Trophocytes&quot;, &quot;PdgfrahiLy6anegFb&quot;, &quot;IgABcell2&quot;, &quot;Myocytes&quot;, &quot;PdgfraloFb2&quot;, &quot;IgDBcell&quot;, &quot;NC&quot;, &quot;ICC&quot;)
+names(colclustername) &lt;- c(&quot;PdgfraloFb1&quot;,&quot;Mph1&quot;, &quot;CD8Tcell1&quot;,&quot;Neut&quot;, &quot;IgABcell1&quot;, &quot;LEC&quot;, &quot;Telocytes&quot;, &quot;DC&quot;, &quot;CD4Tcell/ILC2&quot;, &quot;Mph2&quot;,  &quot;NKcell&quot;, &quot;CD8Tcell2&quot;, &quot;Mph3&quot;, &quot;Trophocytes&quot;, &quot;PdgfrahiFb&quot;, &quot;IgABcell2&quot;, &quot;Myocytes&quot;, &quot;PdgfraloFb2&quot;, &quot;IgDBcell&quot;, &quot;Glial&quot;, &quot;ICC&quot;)
 
 ## col cond2
 colcond2 &lt;- c(&quot;#202547&quot;,&quot;#BE3144&quot;)
@@ -783,18 +849,203 @@ names(colcond2) &lt;- c(&quot;WT&quot;, &quot;cko&quot;)</code></pre>
 <pre class="r"><code>Idents(seurat) &lt;- seurat$cluster_name
 DimPlot(seurat, reduction = &quot;umap&quot;, cols = colclustername)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/plot%20umaps%20clustername-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-plot-umaps-clustername-1">
+Past versions of "plot umaps clustername-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-plot-umaps-clustername-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/plot umaps clustername-1.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>DimPlot(seurat, reduction = &quot;umap&quot;, cols = colclustername) + theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/plot%20umaps%20clustername-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-plot-umaps-clustername-2">
+Past versions of "plot umaps clustername-2.png"
+</button>
+</p>
+<div id="fig-no-spaces-plot-umaps-clustername-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/plot umaps clustername-2.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="condition" class="section level4">
 <h4>condition</h4>
 <pre class="r"><code>Idents(seurat) &lt;- seurat$cond2
 DimPlot(seurat, reduction = &quot;umap&quot;, cols = colcond2, split.by = &quot;cond2&quot;)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/plot%20umaps%20condition-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-plot-umaps-condition-1">
+Past versions of "plot umaps condition-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-plot-umaps-condition-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/plot umaps condition-1.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>DimPlot(seurat, reduction = &quot;umap&quot;, cols = colcond2, order = &quot;WT&quot;)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/plot%20umaps%20condition-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-plot-umaps-condition-2">
+Past versions of "plot umaps condition-2.png"
+</button>
+</p>
+<div id="fig-no-spaces-plot-umaps-condition-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/plot umaps condition-2.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>DimPlot(seurat, reduction = &quot;umap&quot;, cols = colcond2, order=&quot;WT&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/plot%20umaps%20condition-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-plot-umaps-condition-3">
+Past versions of "plot umaps condition-3.png"
+</button>
+</p>
+<div id="fig-no-spaces-plot-umaps-condition-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/plot umaps condition-3.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="calculate-marker-genes" class="section level4">
 <h4>calculate marker genes</h4>
@@ -822,18 +1073,55 @@ selGenes &lt;- data.frame(geneID=c(&quot;Cpe&quot;,&quot;Ano1&quot;,&quot;Pecam1
 
 DotPlot(seurat, features = selGenes, group.by= &quot;cluster_name&quot;) + RotatedAxis() + scale_color_viridis(option=&quot;E&quot;) + coord_flip()</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/dotplot-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-dotplot-1">
+Past versions of dotplot-1.png
+</button>
+</p>
+<div id="fig-dotplot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/dotplot-1.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="subset-cd45-negative-clusters" class="section level3">
 <h3>subset CD45 negative clusters</h3>
-<pre class="r"><code>seuratCD45neg &lt;- subset(seurat, cluster_name %in% c(&quot;PdgfraloFb1&quot;,&quot;PdgfraloFb2&quot;, &quot;Trophocytes&quot;, &quot;Telocytes&quot;, &quot;Myocytes&quot;, &quot;PdgfrahiLy6anegFb&quot;, &quot;NC&quot;, &quot;LEC&quot;, &quot;ICC&quot;))</code></pre>
+<pre class="r"><code>seuratCD45neg &lt;- subset(seurat, cluster_name %in% c(&quot;PdgfraloFb1&quot;,&quot;PdgfraloFb2&quot;, &quot;Trophocytes&quot;, &quot;Telocytes&quot;, &quot;Myocytes&quot;, &quot;PdgfrahiFb&quot;, &quot;Glial&quot;, &quot;LEC&quot;, &quot;ICC&quot;))</code></pre>
 <div id="counts-1" class="section level4">
 <h4>counts</h4>
 <pre class="r"><code>table(seuratCD45neg$cluster_name)</code></pre>
 <pre><code>
-      PdgfraloFb1       PdgfraloFb2       Trophocytes         Telocytes          Myocytes 
-             4607               639               848              2173               653 
-PdgfrahiLy6anegFb                NC               LEC               ICC 
-              798               180              2201               169 </code></pre>
+PdgfraloFb1 PdgfraloFb2 Trophocytes   Telocytes    Myocytes  PdgfrahiFb       Glial         LEC 
+       4607         639         848        2173         653         798         180        2201 
+        ICC 
+        169 </code></pre>
 <pre class="r"><code>table(seuratCD45neg$orig.ident)</code></pre>
 <pre><code>
       
@@ -843,15 +1131,13 @@ PdgfrahiLy6anegFb                NC               LEC               ICC
   WT  cko 
 4771 7497 </code></pre>
 </div>
-</div>
 <div id="average-heatmap-top5-cluster-marker-cd45-negative-stromal"
-class="section level3">
-<h3>average Heatmap top5 cluster marker CD45 negative (stromal)</h3>
+class="section level4">
+<h4>average Heatmap top5 cluster marker CD45 negative (stromal)</h4>
 <pre class="r"><code>Idents(seuratCD45neg) &lt;- seuratCD45neg$cluster_name
 levels(seuratCD45neg)</code></pre>
-<pre><code>[1] &quot;PdgfraloFb1&quot;       &quot;PdgfraloFb2&quot;       &quot;Trophocytes&quot;       &quot;Telocytes&quot;        
-[5] &quot;Myocytes&quot;          &quot;PdgfrahiLy6anegFb&quot; &quot;NC&quot;                &quot;LEC&quot;              
-[9] &quot;ICC&quot;              </code></pre>
+<pre><code>[1] &quot;PdgfraloFb1&quot; &quot;PdgfraloFb2&quot; &quot;Trophocytes&quot; &quot;Telocytes&quot;   &quot;Myocytes&quot;    &quot;PdgfrahiFb&quot; 
+[7] &quot;Glial&quot;       &quot;LEC&quot;         &quot;ICC&quot;        </code></pre>
 <pre class="r"><code>avgHeatmap &lt;- function(seuratCD45neg, selGenes, colVecIdent, colVecCond=NULL,
                        ordVec=NULL, gapVecR=NULL, gapVecC=NULL,cc=FALSE,
                        cr=FALSE, condCol=FALSE){
@@ -920,13 +1206,50 @@ levels(seuratCD45neg)</code></pre>
 genesPlot &lt;- data.frame(gene=c(&quot;Sfrp1&quot;, &quot;Clec3b&quot;, &quot;Fbln1&quot;, &quot;Adamdec1&quot;, &quot;C4b&quot;, &quot;P2rx1&quot;, &quot;Itga8&quot;, &quot;Fgfr2&quot;, &quot;Cxcl14&quot;, &quot;Tmem178&quot;, &quot;Cpxm1&quot;, &quot;Ccdc80&quot;, &quot;Cd34&quot;, &quot;Ogn&quot;, &quot;Lgi2&quot;, &quot;Bmp5&quot;, &quot;Tagln&quot;, &quot;Tmem158&quot;, &quot;Col4a5&quot;, &quot;Smoc2&quot;, &quot;Myh11&quot;, &quot;Actg2&quot;, &quot;Acta2&quot;, &quot;Myl9&quot;, &quot;Tpm2&quot;, &quot;Ptn&quot;, &quot;Rgs5&quot;, &quot;Dpt&quot;, &quot;Lum&quot;, &quot;Timp1&quot;, &quot;Plp1&quot;, &quot;Lgi4&quot;, &quot;Cryab&quot;, &quot;Sostdc1&quot;, &quot;Postn&quot;, &quot;Mmrn1&quot;, &quot;Flt4&quot;, &quot;Egfl7&quot;, &quot;Lyve1&quot;, &quot;Aqp1&quot;, &quot;Cpe&quot;, &quot;Ano1&quot;, &quot;Pde3a&quot;, &quot;Pcp4l1&quot;, &quot;Grem2&quot;))
 
 levels(seuratCD45neg)</code></pre>
-<pre><code>[1] &quot;PdgfraloFb1&quot;       &quot;PdgfraloFb2&quot;       &quot;Trophocytes&quot;       &quot;Telocytes&quot;        
-[5] &quot;Myocytes&quot;          &quot;PdgfrahiLy6anegFb&quot; &quot;NC&quot;                &quot;LEC&quot;              
-[9] &quot;ICC&quot;              </code></pre>
+<pre><code>[1] &quot;PdgfraloFb1&quot; &quot;PdgfraloFb2&quot; &quot;Trophocytes&quot; &quot;Telocytes&quot;   &quot;Myocytes&quot;    &quot;PdgfrahiFb&quot; 
+[7] &quot;Glial&quot;       &quot;LEC&quot;         &quot;ICC&quot;        </code></pre>
 <pre class="r"><code>colVec &lt;- colclustername
 
 avgHeatmap(seuratCD45neg, selGenes = genesPlot, colVecIdent = colVec)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/avg%20heatmap-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-avg-heatmap-1">
+Past versions of "avg heatmap-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-avg-heatmap-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/avg heatmap-1.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div id="abundances" class="section level3">
 <h3>abundances</h3>
@@ -951,6 +1274,43 @@ ordX &lt;-  c(&quot;WT&quot;, &quot;cko&quot;)
 ## plot abundance
 ggbarplot(dat_all, x= &quot;cond&quot;, y= &quot;percent&quot;, fill = &quot;Var1&quot;, legend = &quot;right&quot;, legend.titel = &quot;cluster&quot;, ylab = &quot;frequency&quot;, palette = colclustername) + scale_x_discrete(limits=ordX)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/abundance%20CD45neg-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-abundance-CD45neg-1">
+Past versions of "abundance CD45neg-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-abundance-CD45neg-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/abundance CD45neg-1.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cd45-positive-immmune-cells" class="section level4">
 <h4>CD45 positive (immmune cells)</h4>
@@ -1001,7 +1361,7 @@ ordX &lt;-  c(&quot;WT&quot;, &quot;cko&quot;)
 
 ## plot abundance
 ggbarplot(dat_all, x= &quot;cond&quot;, y= &quot;percent&quot;, fill = &quot;Var1&quot;, legend = &quot;right&quot;, legend.titel = &quot;cluster&quot;, ylab = &quot;frequency&quot;, palette = colclustername) + scale_x_discrete(limits=ordX)</code></pre>
-<p><img src="figure/GranulomaAll.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/GranulomaAll.Rmd/relative%20abundance%20CD45pos-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="top-de-genes" class="section level3">
@@ -1016,31 +1376,31 @@ seurat$celltype[which(seurat$cluster_name %in% c(&quot;Neut&quot;))] &lt;- &quot
 seurat$celltype[which(seurat$cluster_name %in% c(&quot;Mph1&quot;, &quot;Mph2&quot;, &quot;Mph3&quot;))] &lt;- &quot;Macrophages&quot;
 seurat$celltype[which(seurat$cluster_name %in% c(&quot;DC&quot;))] &lt;- &quot;DC&quot;
 seurat$celltype[which(seurat$cluster_name %in% c(&quot;IgABcell1&quot;,&quot;IgABcell2&quot;,&quot;IgDBcell&quot;))] &lt;- &quot;Bcells&quot;
-seurat$celltype[which(seurat$cluster_name %in% c(&quot;PdgfraloFb1&quot;,&quot;PdgfraloFb2&quot;, &quot;Trophocytes&quot;, &quot;Telocytes&quot;, &quot;Myocytes&quot;, &quot;PdgfrahiLy6anegFb&quot;))] &lt;- &quot;Fb&quot;
-seurat$celltype[which(seurat$cluster_name %in% c(&quot;NC&quot;))] &lt;- &quot;NC&quot;
+seurat$celltype[which(seurat$cluster_name %in% c(&quot;PdgfraloFb1&quot;,&quot;PdgfraloFb2&quot;, &quot;Trophocytes&quot;, &quot;Telocytes&quot;, &quot;Myocytes&quot;, &quot;PdgfrahiFb&quot;))] &lt;- &quot;Fb&quot;
+seurat$celltype[which(seurat$cluster_name %in% c(&quot;Glial&quot;))] &lt;- &quot;Glial&quot;
 seurat$celltype[which(seurat$cluster_name %in% c(&quot;LEC&quot;))] &lt;- &quot;LEC&quot;
 seurat$celltype[which(seurat$cluster_name %in% c(&quot;ICC&quot;))] &lt;- &quot;ICC&quot;
 table(seurat$celltype)</code></pre>
 <pre><code>
-       Bcells CD4Tcell/ILC2     CD8Tcells            DC            Fb           ICC           LEC 
-         3505          1944          4144          2048          9718           169          2201 
-  Macrophages            NC          Neut       NKcells 
-         6780           180          2477          1502 </code></pre>
+       Bcells CD4Tcell/ILC2     CD8Tcells            DC            Fb         Glial           ICC 
+         3505          1944          4144          2048          9718           180           169 
+          LEC   Macrophages          Neut       NKcells 
+         2201          6780          2477          1502 </code></pre>
 <pre class="r"><code>## order
 Idents(seurat) &lt;- seurat$celltype
-seurat$celltype &lt;- factor(seurat$celltype, levels=c(&quot;CD8Tcells&quot;,&quot;NKcells&quot;, &quot;CD4Tcell/ILC2&quot;,&quot;Neut&quot;,&quot;Macrophages&quot;,&quot;DC&quot;,&quot;Bcells&quot;, &quot;Fb&quot;, &quot;NC&quot;, &quot;LEC&quot;, &quot;ICC&quot;))
+seurat$celltype &lt;- factor(seurat$celltype, levels=c(&quot;CD8Tcells&quot;,&quot;NKcells&quot;, &quot;CD4Tcell/ILC2&quot;,&quot;Neut&quot;,&quot;Macrophages&quot;,&quot;DC&quot;,&quot;Bcells&quot;, &quot;Fb&quot;, &quot;Glial&quot;, &quot;LEC&quot;, &quot;ICC&quot;))
 Idents(seurat) &lt;- seurat$celltype
 table(seurat$celltype)</code></pre>
 <pre><code>
     CD8Tcells       NKcells CD4Tcell/ILC2          Neut   Macrophages            DC        Bcells 
          4144          1502          1944          2477          6780          2048          3505 
-           Fb            NC           LEC           ICC 
+           Fb         Glial           LEC           ICC 
          9718           180          2201           169 </code></pre>
 </div>
 <div id="set-color-vector-celltypes" class="section level4">
 <h4>set color vector celltypes</h4>
 <pre class="r"><code>colcelltype &lt;- c(&quot;#202547&quot;,&quot;#84ad83&quot;,&quot;#00A087FF&quot;,&quot;#B09C85&quot;,&quot;#B1746FFF&quot;,&quot;#8491B4FF&quot;, &quot;#4e5a4c&quot;,&quot;#355C7D&quot;,&quot;#904D39&quot;,&quot;#725663FF&quot;,&quot;#91D1C2&quot;)
-names(colcelltype) &lt;- c(&quot;CD8Tcells&quot;,&quot;NKcells&quot;, &quot;CD4Tcell/ILC2&quot;,&quot;Neut&quot;,&quot;Macrophages&quot;,&quot;DC&quot;,&quot;Bcells&quot;, &quot;Fb&quot;, &quot;NC&quot;, &quot;LEC&quot;, &quot;ICC&quot;)</code></pre>
+names(colcelltype) &lt;- c(&quot;CD8Tcells&quot;,&quot;NKcells&quot;, &quot;CD4Tcell/ILC2&quot;,&quot;Neut&quot;,&quot;Macrophages&quot;,&quot;DC&quot;,&quot;Bcells&quot;, &quot;Fb&quot;, &quot;Glial&quot;, &quot;LEC&quot;, &quot;ICC&quot;)</code></pre>
 </div>
 </div>
 <div id="umap" class="section level3">
@@ -1050,8 +1410,82 @@ names(colcelltype) &lt;- c(&quot;CD8Tcells&quot;,&quot;NKcells&quot;, &quot;CD4T
 <pre class="r"><code>Idents(seurat) &lt;- seurat$celltype
 DimPlot(seurat, reduction = &quot;umap&quot;, cols = colcelltype)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/celltype%20umap-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-celltype-umap-1">
+Past versions of "celltype umap-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-celltype-umap-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/celltype umap-1.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>DimPlot(seurat, reduction = &quot;umap&quot;, cols = colcelltype) + theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/celltype%20umap-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-celltype-umap-2">
+Past versions of "celltype umap-2.png"
+</button>
+</p>
+<div id="fig-no-spaces-celltype-umap-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/celltype umap-2.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="calculate-de-genes-for-each-immune-celltype-according-to-wtcko"
 class="section level4">
@@ -1155,10 +1589,124 @@ class="section level4">
 <h4>distribution of log2FC of overall top 100 DE genes</h4>
 <pre class="r"><code>ggdensity(DEGenesAll100WTcko, x = &quot;avg_log2FC&quot;, add= &quot;median&quot;, rug = TRUE, color = &quot;celltype&quot;, fill = &quot;celltype&quot;, palette = colcelltype)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/boxplot%20top100%20DE%20genes%20overall-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-boxplot-top100-DE-genes-overall-1">
+Past versions of "boxplot top100 DE genes overall-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-boxplot-top100-DE-genes-overall-1"
+class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/boxplot top100 DE genes overall-1.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggviolin(DEGenesAll100WTcko, x = &quot;celltype&quot;, y = &quot;avg_log2FC&quot;, fill = &quot;celltype&quot;, palette = colcelltype, add = &quot;median_iqr&quot;)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/boxplot%20top100%20DE%20genes%20overall-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-boxplot-top100-DE-genes-overall-2">
+Past versions of "boxplot top100 DE genes overall-2.png"
+</button>
+</p>
+<div id="fig-no-spaces-boxplot-top100-DE-genes-overall-2"
+class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/boxplot top100 DE genes overall-2.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggboxplot(DEGenesAll100WTcko, x = &quot;celltype&quot;, y = &quot;avg_log2FC&quot;, color = &quot;celltype&quot;, palette = colcelltype ,add = &quot;jitter&quot;)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/boxplot%20top100%20DE%20genes%20overall-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-boxplot-top100-DE-genes-overall-3">
+Past versions of "boxplot top100 DE genes overall-3.png"
+</button>
+</p>
+<div id="fig-no-spaces-boxplot-top100-DE-genes-overall-3"
+class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/boxplot top100 DE genes overall-3.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="violin-il1rl1" class="section level3">
@@ -1166,12 +1714,86 @@ class="section level4">
 <pre class="r"><code>Idents(seurat) &lt;- seurat$cluster_name
 VlnPlot(object=seurat, features = &quot;ENSMUSG00000026069.Il1rl1&quot;, cols = colcond2, split.by = &quot;cond2&quot;, pt.size = 1)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/violin-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-violin-1">
+Past versions of violin-1.png
+</button>
+</p>
+<div id="fig-violin-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/violin-1.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>VlnPlot(object=seurat, features = &quot;ENSMUSG00000026069.Il1rl1&quot;, cols = colcond2, split.by = &quot;cond2&quot;, pt.size = 2)</code></pre>
 <p><img src="figure/GranulomaAll.Rmd/violin-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-violin-2">
+Past versions of violin-2.png
+</button>
+</p>
+<div id="fig-violin-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Ludewig-Lab/IntGranuloma/blob/ac89adb027080acdc727ef0636b7342b330460bb/docs/figure/GranulomaAll.Rmd/violin-2.png" target="_blank">ac89adb</a>
+</td>
+<td>
+angeldemartin
+</td>
+<td>
+2025-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="session-info" class="section level4">
 <h4>session info</h4>
 <pre class="r"><code>date()</code></pre>
-<pre><code>[1] &quot;Thu Aug 21 16:25:43 2025&quot;</code></pre>
+<pre><code>[1] &quot;Fri Aug 22 11:18:43 2025&quot;</code></pre>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.4.0 (2024-04-24)
 Platform: x86_64-apple-darwin20
@@ -1234,9 +1856,9 @@ loaded via a namespace (and not attached):
  [67] zoo_1.8-14                XVector_0.44.0            knitr_1.50               
  [70] ggplot.multistats_1.0.1   UCSC.utils_1.0.0          RhpcBLASctl_0.23-42      
  [73] timechange_0.3.0          foreach_1.5.2             patchwork_1.3.1          
- [76] caTools_1.18.3            data.table_1.17.8         ggtree_3.12.0            
+ [76] caTools_1.18.3            ggtree_3.12.0             data.table_1.17.8        
  [79] R.oo_1.27.1               RSpectra_0.16-2           irlba_2.3.5.1            
- [82] ggrastr_1.0.2             fastDummies_1.7.5         gridGraphics_0.5-1       
+ [82] ggrastr_1.0.2             gridGraphics_0.5-1        fastDummies_1.7.5        
  [85] lazyeval_0.2.2            yaml_2.3.10               survival_3.8-3           
  [88] scattermore_1.2           crayon_1.5.3              RcppAnnoy_0.0.22         
  [91] RColorBrewer_1.1-3        progressr_0.15.1          tweenr_2.0.3             
@@ -1265,36 +1887,36 @@ loaded via a namespace (and not attached):
 [160] memoise_2.0.1             rmarkdown_2.29            scales_1.4.0             
 [163] R.methodsS3_1.8.2         future_1.67.0             RANN_2.6.2               
 [166] Cairo_1.6-2               spatstat.data_3.1-6       rstudioapi_0.17.1        
-[169] cluster_2.1.8.1           mutoss_0.1-13             spatstat.utils_3.1-5     
-[172] hms_1.1.3                 fitdistrplus_1.2-4        cowplot_1.2.0            
-[175] colorspace_2.1-1          rlang_1.1.6               DelayedMatrixStats_1.26.0
-[178] sparseMatrixStats_1.16.0  xts_0.14.1                dotCall64_1.2            
-[181] shinydashboard_0.7.3      ggforce_0.5.0             laeken_0.5.3             
-[184] mgcv_1.9-3                xfun_0.52                 e1071_1.7-16             
-[187] TH.data_1.1-3             iterators_1.0.14          abind_1.4-8              
-[190] GOSemSim_2.30.2           treeio_1.28.0             futile.options_1.0.1     
-[193] bitops_1.0-9              Rdpack_2.6.4              promises_1.3.3           
-[196] scatterpie_0.2.5          RSQLite_2.4.2             qvalue_2.36.0            
-[199] sandwich_3.1-1            fgsea_1.30.0              DelayedArray_0.30.1      
-[202] proxy_0.4-27              GO.db_3.19.1              compiler_4.4.0           
-[205] prettyunits_1.2.0         boot_1.3-31               beachmat_2.20.0          
-[208] listenv_0.9.1             Rcpp_1.1.0                edgeR_4.2.2              
-[211] workflowr_1.7.1           BiocSingular_1.20.0       tensor_1.5.1             
-[214] MASS_7.3-65               progress_1.2.3            BiocParallel_1.38.0      
-[217] babelgene_22.9            spatstat.random_3.4-1     R6_2.6.1                 
-[220] fastmap_1.2.0             multcomp_1.4-28           fastmatch_1.1-6          
-[223] rstatix_0.7.2             vipor_0.4.7               TTR_0.24.4               
-[226] ROCR_1.0-11               TFisher_0.2.0             rsvd_1.0.5               
-[229] vcd_1.4-13                nnet_7.3-20               gtable_0.3.6             
-[232] KernSmooth_2.23-26        miniUI_0.1.2              deldir_2.0-4             
-[235] htmltools_0.5.8.1         ggthemes_5.1.0            bit64_4.6.0-1            
-[238] spatstat.explore_3.5-2    lifecycle_1.0.4           blme_1.0-6               
-[241] S7_0.2.0                  nloptr_2.2.1              sass_0.4.10              
-[244] vctrs_0.6.5               robustbase_0.99-4-1       spatstat.geom_3.5-0      
-[247] sn_2.1.1                  ggfun_0.2.0               future.apply_1.20.0      
-[250] bslib_0.9.0               pillar_1.11.0             gplots_3.2.0             
-[253] pcaMethods_1.96.0         metapod_1.12.0            locfit_1.5-9.12          
-[256] jsonlite_2.0.0            GetoptLong_1.0.5         </code></pre>
+[169] cluster_2.1.8.1           whisker_0.4.1             mutoss_0.1-13            
+[172] spatstat.utils_3.1-5      hms_1.1.3                 fitdistrplus_1.2-4       
+[175] cowplot_1.2.0             colorspace_2.1-1          rlang_1.1.6              
+[178] DelayedMatrixStats_1.26.0 sparseMatrixStats_1.16.0  xts_0.14.1               
+[181] dotCall64_1.2             shinydashboard_0.7.3      ggforce_0.5.0            
+[184] laeken_0.5.3              mgcv_1.9-3                xfun_0.52                
+[187] e1071_1.7-16              TH.data_1.1-3             iterators_1.0.14         
+[190] abind_1.4-8               GOSemSim_2.30.2           treeio_1.28.0            
+[193] futile.options_1.0.1      bitops_1.0-9              Rdpack_2.6.4             
+[196] promises_1.3.3            scatterpie_0.2.5          RSQLite_2.4.2            
+[199] qvalue_2.36.0             sandwich_3.1-1            fgsea_1.30.0             
+[202] DelayedArray_0.30.1       proxy_0.4-27              GO.db_3.19.1             
+[205] compiler_4.4.0            prettyunits_1.2.0         boot_1.3-31              
+[208] beachmat_2.20.0           listenv_0.9.1             Rcpp_1.1.0               
+[211] edgeR_4.2.2               workflowr_1.7.1           BiocSingular_1.20.0      
+[214] tensor_1.5.1              MASS_7.3-65               progress_1.2.3           
+[217] BiocParallel_1.38.0       babelgene_22.9            spatstat.random_3.4-1    
+[220] R6_2.6.1                  fastmap_1.2.0             multcomp_1.4-28          
+[223] fastmatch_1.1-6           rstatix_0.7.2             vipor_0.4.7              
+[226] TTR_0.24.4                ROCR_1.0-11               TFisher_0.2.0            
+[229] rsvd_1.0.5                vcd_1.4-13                nnet_7.3-20              
+[232] gtable_0.3.6              KernSmooth_2.23-26        miniUI_0.1.2             
+[235] deldir_2.0-4              htmltools_0.5.8.1         ggthemes_5.1.0           
+[238] bit64_4.6.0-1             spatstat.explore_3.5-2    lifecycle_1.0.4          
+[241] blme_1.0-6                S7_0.2.0                  nloptr_2.2.1             
+[244] sass_0.4.10               vctrs_0.6.5               robustbase_0.99-4-1      
+[247] spatstat.geom_3.5-0       sn_2.1.1                  ggfun_0.2.0              
+[250] future.apply_1.20.0       bslib_0.9.0               pillar_1.11.0            
+[253] gplots_3.2.0              pcaMethods_1.96.0         metapod_1.12.0           
+[256] locfit_1.5-9.12           jsonlite_2.0.0            GetoptLong_1.0.5         </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1365,9 +1987,9 @@ loaded via a namespace (and not attached):
  [67] zoo_1.8-14                XVector_0.44.0            knitr_1.50               
  [70] ggplot.multistats_1.0.1   UCSC.utils_1.0.0          RhpcBLASctl_0.23-42      
  [73] timechange_0.3.0          foreach_1.5.2             patchwork_1.3.1          
- [76] caTools_1.18.3            data.table_1.17.8         ggtree_3.12.0            
+ [76] caTools_1.18.3            ggtree_3.12.0             data.table_1.17.8        
  [79] R.oo_1.27.1               RSpectra_0.16-2           irlba_2.3.5.1            
- [82] ggrastr_1.0.2             fastDummies_1.7.5         gridGraphics_0.5-1       
+ [82] ggrastr_1.0.2             gridGraphics_0.5-1        fastDummies_1.7.5        
  [85] lazyeval_0.2.2            yaml_2.3.10               survival_3.8-3           
  [88] scattermore_1.2           crayon_1.5.3              RcppAnnoy_0.0.22         
  [91] RColorBrewer_1.1-3        progressr_0.15.1          tweenr_2.0.3             
@@ -1396,36 +2018,36 @@ loaded via a namespace (and not attached):
 [160] memoise_2.0.1             rmarkdown_2.29            scales_1.4.0             
 [163] R.methodsS3_1.8.2         future_1.67.0             RANN_2.6.2               
 [166] Cairo_1.6-2               spatstat.data_3.1-6       rstudioapi_0.17.1        
-[169] cluster_2.1.8.1           mutoss_0.1-13             spatstat.utils_3.1-5     
-[172] hms_1.1.3                 fitdistrplus_1.2-4        cowplot_1.2.0            
-[175] colorspace_2.1-1          rlang_1.1.6               DelayedMatrixStats_1.26.0
-[178] sparseMatrixStats_1.16.0  xts_0.14.1                dotCall64_1.2            
-[181] shinydashboard_0.7.3      ggforce_0.5.0             laeken_0.5.3             
-[184] mgcv_1.9-3                xfun_0.52                 e1071_1.7-16             
-[187] TH.data_1.1-3             iterators_1.0.14          abind_1.4-8              
-[190] GOSemSim_2.30.2           treeio_1.28.0             futile.options_1.0.1     
-[193] bitops_1.0-9              Rdpack_2.6.4              promises_1.3.3           
-[196] scatterpie_0.2.5          RSQLite_2.4.2             qvalue_2.36.0            
-[199] sandwich_3.1-1            fgsea_1.30.0              DelayedArray_0.30.1      
-[202] proxy_0.4-27              GO.db_3.19.1              compiler_4.4.0           
-[205] prettyunits_1.2.0         boot_1.3-31               beachmat_2.20.0          
-[208] listenv_0.9.1             Rcpp_1.1.0                edgeR_4.2.2              
-[211] workflowr_1.7.1           BiocSingular_1.20.0       tensor_1.5.1             
-[214] MASS_7.3-65               progress_1.2.3            BiocParallel_1.38.0      
-[217] babelgene_22.9            spatstat.random_3.4-1     R6_2.6.1                 
-[220] fastmap_1.2.0             multcomp_1.4-28           fastmatch_1.1-6          
-[223] rstatix_0.7.2             vipor_0.4.7               TTR_0.24.4               
-[226] ROCR_1.0-11               TFisher_0.2.0             rsvd_1.0.5               
-[229] vcd_1.4-13                nnet_7.3-20               gtable_0.3.6             
-[232] KernSmooth_2.23-26        miniUI_0.1.2              deldir_2.0-4             
-[235] htmltools_0.5.8.1         ggthemes_5.1.0            bit64_4.6.0-1            
-[238] spatstat.explore_3.5-2    lifecycle_1.0.4           blme_1.0-6               
-[241] S7_0.2.0                  nloptr_2.2.1              sass_0.4.10              
-[244] vctrs_0.6.5               robustbase_0.99-4-1       spatstat.geom_3.5-0      
-[247] sn_2.1.1                  ggfun_0.2.0               future.apply_1.20.0      
-[250] bslib_0.9.0               pillar_1.11.0             gplots_3.2.0             
-[253] pcaMethods_1.96.0         metapod_1.12.0            locfit_1.5-9.12          
-[256] jsonlite_2.0.0            GetoptLong_1.0.5         </code></pre>
+[169] cluster_2.1.8.1           whisker_0.4.1             mutoss_0.1-13            
+[172] spatstat.utils_3.1-5      hms_1.1.3                 fitdistrplus_1.2-4       
+[175] cowplot_1.2.0             colorspace_2.1-1          rlang_1.1.6              
+[178] DelayedMatrixStats_1.26.0 sparseMatrixStats_1.16.0  xts_0.14.1               
+[181] dotCall64_1.2             shinydashboard_0.7.3      ggforce_0.5.0            
+[184] laeken_0.5.3              mgcv_1.9-3                xfun_0.52                
+[187] e1071_1.7-16              TH.data_1.1-3             iterators_1.0.14         
+[190] abind_1.4-8               GOSemSim_2.30.2           treeio_1.28.0            
+[193] futile.options_1.0.1      bitops_1.0-9              Rdpack_2.6.4             
+[196] promises_1.3.3            scatterpie_0.2.5          RSQLite_2.4.2            
+[199] qvalue_2.36.0             sandwich_3.1-1            fgsea_1.30.0             
+[202] DelayedArray_0.30.1       proxy_0.4-27              GO.db_3.19.1             
+[205] compiler_4.4.0            prettyunits_1.2.0         boot_1.3-31              
+[208] beachmat_2.20.0           listenv_0.9.1             Rcpp_1.1.0               
+[211] edgeR_4.2.2               workflowr_1.7.1           BiocSingular_1.20.0      
+[214] tensor_1.5.1              MASS_7.3-65               progress_1.2.3           
+[217] BiocParallel_1.38.0       babelgene_22.9            spatstat.random_3.4-1    
+[220] R6_2.6.1                  fastmap_1.2.0             multcomp_1.4-28          
+[223] fastmatch_1.1-6           rstatix_0.7.2             vipor_0.4.7              
+[226] TTR_0.24.4                ROCR_1.0-11               TFisher_0.2.0            
+[229] rsvd_1.0.5                vcd_1.4-13                nnet_7.3-20              
+[232] gtable_0.3.6              KernSmooth_2.23-26        miniUI_0.1.2             
+[235] deldir_2.0-4              htmltools_0.5.8.1         ggthemes_5.1.0           
+[238] bit64_4.6.0-1             spatstat.explore_3.5-2    lifecycle_1.0.4          
+[241] blme_1.0-6                S7_0.2.0                  nloptr_2.2.1             
+[244] sass_0.4.10               vctrs_0.6.5               robustbase_0.99-4-1      
+[247] spatstat.geom_3.5-0       sn_2.1.1                  ggfun_0.2.0              
+[250] future.apply_1.20.0       bslib_0.9.0               pillar_1.11.0            
+[253] gplots_3.2.0              pcaMethods_1.96.0         metapod_1.12.0           
+[256] locfit_1.5-9.12           jsonlite_2.0.0            GetoptLong_1.0.5         </code></pre>
 </div>
 </div>
 </div>

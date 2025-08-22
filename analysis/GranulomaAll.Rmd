@@ -147,19 +147,19 @@ seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "10" )] <- "NKcell"
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "11" )] <- "CD8Tcell2"
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "12" )] <- "Mph3"
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "13" )] <- "Trophocytes"
-seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "14" )] <- "PdgfrahiLy6anegFb"
+seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "14" )] <- "PdgfrahiFb"
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "15" )] <- "IgABcell2"
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "16" )] <- "Myocytes"
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "17" )] <- "PdgfraloFb2"
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "18" )] <- "IgDBcell"
-seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "19" )] <- "NC"
+seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "19" )] <- "Glial"
 seurat$cluster_name[which(seurat$RNA_snn_res.0.25 %in% "20" )] <- "ICC"
 table(seurat$cluster_name)
 table(seurat$RNA_snn_res.0.25)
 
 ## order
 Idents(seurat) <- seurat$cluster_name
-seurat$cluster_name <- factor(seurat$cluster_name, levels=c("CD8Tcell1","CD8Tcell2","NKcell", "CD4Tcell/ILC2","Neut", "Mph1","Mph2", "Mph3","DC","IgABcell1","IgABcell2","IgDBcell","PdgfraloFb1","PdgfraloFb2", "Trophocytes", "Telocytes", "Myocytes", "PdgfrahiLy6anegFb", "NC", "LEC", "ICC"))
+seurat$cluster_name <- factor(seurat$cluster_name, levels=c("CD8Tcell1","CD8Tcell2","NKcell", "CD4Tcell/ILC2","Neut", "Mph1","Mph2", "Mph3","DC","IgABcell1","IgABcell2","IgDBcell","PdgfraloFb1","PdgfraloFb2", "Trophocytes", "Telocytes", "Myocytes", "PdgfrahiFb", "Glial", "LEC", "ICC"))
 Idents(seurat) <- seurat$cluster_name
 table(seurat$cluster_name)
 
@@ -203,7 +203,7 @@ table(seurat$cond2)
 ```{r set color vectors}
 ## col clustername
 colclustername <- c("#355C7D","#B1746FFF","#202547","#B09C85", "#4e5a4c","#53354A","#2A363B","#8491B4FF","#00A087FF","#DC9989","#84ad83", "#628395","#D33B44","#779d8d","#727077","#868686FF","#F8B195","#FF847C","#725663FF","#904D39","#91D1C2")
-names(colclustername) <- c("PdgfraloFb1","Mph1", "CD8Tcell1","Neut", "IgABcell1", "LEC", "Telocytes", "DC", "CD4Tcell/ILC2", "Mph2",  "NKcell", "CD8Tcell2", "Mph3", "Trophocytes", "PdgfrahiLy6anegFb", "IgABcell2", "Myocytes", "PdgfraloFb2", "IgDBcell", "NC", "ICC")
+names(colclustername) <- c("PdgfraloFb1","Mph1", "CD8Tcell1","Neut", "IgABcell1", "LEC", "Telocytes", "DC", "CD4Tcell/ILC2", "Mph2",  "NKcell", "CD8Tcell2", "Mph3", "Trophocytes", "PdgfrahiFb", "IgABcell2", "Myocytes", "PdgfraloFb2", "IgDBcell", "Glial", "ICC")
 
 ## col cond2
 colcond2 <- c("#202547","#BE3144")
@@ -255,7 +255,7 @@ DotPlot(seurat, features = selGenes, group.by= "cluster_name") + RotatedAxis() +
 
 ### subset CD45 negative clusters
 ```{r subset CD45neg}
-seuratCD45neg <- subset(seurat, cluster_name %in% c("PdgfraloFb1","PdgfraloFb2", "Trophocytes", "Telocytes", "Myocytes", "PdgfrahiLy6anegFb", "NC", "LEC", "ICC"))
+seuratCD45neg <- subset(seurat, cluster_name %in% c("PdgfraloFb1","PdgfraloFb2", "Trophocytes", "Telocytes", "Myocytes", "PdgfrahiFb", "Glial", "LEC", "ICC"))
 ```
 
 #### counts
@@ -265,7 +265,7 @@ table(seuratCD45neg$orig.ident)
 table(seuratCD45neg$cond2)
 ```
 
-### average Heatmap top5 cluster marker CD45 negative (stromal)
+#### average Heatmap top5 cluster marker CD45 negative (stromal)
 ```{r avg heatmap, fig.height=10, fig.width=8}
 Idents(seuratCD45neg) <- seuratCD45neg$cluster_name
 levels(seuratCD45neg)
@@ -365,7 +365,7 @@ ggbarplot(dat_all, x= "cond", y= "percent", fill = "Var1", legend = "right", leg
 ```
 
 #### CD45 positive (immmune cells)
-```{r relative abundance CD45pos}
+```{r}
 ## subset CD45+ cells
 seuratCD45pos <- subset(seurat, cluster_name %in% c("CD8Tcell1","CD8Tcell2","NKcell","CD4Tcell/ILC2","Neut","Mph1","Mph2","Mph3","DC","IgABcell1","IgABcell2","IgDBcell"))
 table(seuratCD45pos$cluster_name)
@@ -379,7 +379,7 @@ table(seuratCD45pos$orig.ident)
 table(seuratCD45pos$cond2)
 ```
 
-```{r}
+```{r relative abundance CD45pos}
 ## make count list
 datList <- NULL
 for(con in unique(seuratCD45pos$cond2)){
@@ -409,22 +409,22 @@ seurat$celltype[which(seurat$cluster_name %in% c("Neut"))] <- "Neut"
 seurat$celltype[which(seurat$cluster_name %in% c("Mph1", "Mph2", "Mph3"))] <- "Macrophages"
 seurat$celltype[which(seurat$cluster_name %in% c("DC"))] <- "DC"
 seurat$celltype[which(seurat$cluster_name %in% c("IgABcell1","IgABcell2","IgDBcell"))] <- "Bcells"
-seurat$celltype[which(seurat$cluster_name %in% c("PdgfraloFb1","PdgfraloFb2", "Trophocytes", "Telocytes", "Myocytes", "PdgfrahiLy6anegFb"))] <- "Fb"
-seurat$celltype[which(seurat$cluster_name %in% c("NC"))] <- "NC"
+seurat$celltype[which(seurat$cluster_name %in% c("PdgfraloFb1","PdgfraloFb2", "Trophocytes", "Telocytes", "Myocytes", "PdgfrahiFb"))] <- "Fb"
+seurat$celltype[which(seurat$cluster_name %in% c("Glial"))] <- "Glial"
 seurat$celltype[which(seurat$cluster_name %in% c("LEC"))] <- "LEC"
 seurat$celltype[which(seurat$cluster_name %in% c("ICC"))] <- "ICC"
 table(seurat$celltype)
 
 ## order
 Idents(seurat) <- seurat$celltype
-seurat$celltype <- factor(seurat$celltype, levels=c("CD8Tcells","NKcells", "CD4Tcell/ILC2","Neut","Macrophages","DC","Bcells", "Fb", "NC", "LEC", "ICC"))
+seurat$celltype <- factor(seurat$celltype, levels=c("CD8Tcells","NKcells", "CD4Tcell/ILC2","Neut","Macrophages","DC","Bcells", "Fb", "Glial", "LEC", "ICC"))
 Idents(seurat) <- seurat$celltype
 table(seurat$celltype)
 ```
 #### set color vector celltypes
 ```{r set color vectors celltype}
 colcelltype <- c("#202547","#84ad83","#00A087FF","#B09C85","#B1746FFF","#8491B4FF", "#4e5a4c","#355C7D","#904D39","#725663FF","#91D1C2")
-names(colcelltype) <- c("CD8Tcells","NKcells", "CD4Tcell/ILC2","Neut","Macrophages","DC","Bcells", "Fb", "NC", "LEC", "ICC")
+names(colcelltype) <- c("CD8Tcells","NKcells", "CD4Tcell/ILC2","Neut","Macrophages","DC","Bcells", "Fb", "Glial", "LEC", "ICC")
 ```
 
 ### umap

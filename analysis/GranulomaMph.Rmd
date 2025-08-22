@@ -16,7 +16,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, dev = c("png", "pdf"))
 seed <- 1234
 ```
 
-## load packages
+#### load packages
 ```{r load packages}
 library(ExploreSCdataSeurat3)
 library(runSeurat3)
@@ -54,28 +54,26 @@ seurat <- readRDS(fileNam)
 
 #### set color vectors
 ```{r set color vectors}
-### col clustername
+## col clustername
 colclustername <- c("#355C7D","#B1746FFF","#202547","#B09C85", "#4e5a4c","#53354A","#2A363B","#8491B4FF","#00A087FF","#DC9989","#84ad83", "#628395","#D33B44","#779d8d","#727077","#868686FF","#F8B195","#FF847C","#725663FF","#904D39","#91D1C2")
-names(colclustername) <- c("PdgfraloFb1","Mph1", "CD8Tcell1","Neut", "IgABcell1", "LEC", "Telocytes", "DC", "CD4Tcell/ILC2", "Mph2",  "NKcell", "CD8Tcell2", "Mph3", "Trophocytes", "PdgfrahiLy6anegFb", "IgABcell2", "Myocytes", "PdgfraloFb2", "IgDBcell", "NC", "ICC")
+names(colclustername) <- c("PdgfraloFb1","Mph1", "CD8Tcell1","Neut", "IgABcell1", "LEC", "Telocytes", "DC", "CD4Tcell/ILC2", "Mph2",  "NKcell", "CD8Tcell2", "Mph3", "Trophocytes", "PdgfrahiFb", "IgABcell2", "Myocytes", "PdgfraloFb2", "IgDBcell", "Glial", "ICC")
 
-### col cond2
+## col cond2
 colcond2 <- c("#202547","#BE3144")
 names(colcond2) <- c("WT", "cko")
 ```
 
-## subset macrophages
+### subset Mph
 ```{r subset mph}
-##subset macrophages
 seuratMph <- subset(seurat, cluster_name %in% c("Mph1","Mph2","Mph3"))
 Idents(seuratMph) <- seuratMph$cluster_name
 levels(seuratMph)
 DimPlot(seuratMph, reduction = "umap", cols = colclustername) 
 ```
 
-## relative abundance macrophages
+#### abundances Mph
 ```{r relative abundance mph}
-## Abundance plot Mph
-##make count list
+## make count list
 datList <- NULL
 for(con in unique(seuratMph$cond2)){
   seuratSub <- subset(seuratMph, cond2==con)
@@ -92,53 +90,23 @@ ordXcond2 <- c("WT", "cko")
 ggbarplot(dat_all, x= "cond2", y= "percent", fill = "Var1", legend = "right", legend.titel = "cluster_name", ylab = "frequency", palette = colclustername, order = ordXcond2) + theme(legend.position = "null")
 ```
 
-## DE genes mph
-```{r DEgenes mph, eval=FALSE, include=TRUE}
-##calculate DE genes 
-Idents(seuratMph) <- seuratMph$cluster_name
-levels(seuratMph)
-DEGenesMph <- FindAllMarkers(seuratMph, only.pos=T, logfc.threshold = 0.2) %>% filter(p_val_adj < 0.01) 
-
-#write.table(DEGenesMph, 
-            #file= "/Users/immbio/Desktop/Project/Angelina/Cxcl13Hpb/analysis/DEgenesMph_cluster_name",
-            #sep="\t",
-            #quote=F,
-            #row.names=F,
-            #col.names=T)
-
-##calculate DE genes Mph cond2
-Idents(seuratMph) <- seuratMph$cond2
-levels(seuratMph)
-DEGenesMphcond2 <- FindAllMarkers(seuratMph, only.pos=T, logfc.threshold = 0.2) %>% filter(p_val_adj < 0.01) 
-```
-
-## mph1 vs mph3
+#### Mph1 vs Mph3
 ```{r filter mph1 and mph3}
-##filter mph1 and mph3
 seuratMph1and3 <- subset(seurat, cluster_name %in% c("Mph1","Mph3"))
 Idents(seuratMph1and3) <- seuratMph1and3$cluster_name
 levels(seuratMph1and3)
-DimPlot(seuratMph1and3, reduction = "umap", pt.size = 0.1, cols = colclustername) 
 ```
 
-## DE genes mph1 vs mph3
+#### DE genes Mph vs Mph3
 ```{r DE genes mph1 vs mph3}
-##calculate DE genes 
 Idents(seuratMph1and3) <- seuratMph1and3$cluster_name
 levels(seuratMph1and3)
 DEGenesMph1and3 <- FindAllMarkers(seuratMph1and3, only.pos=T, logfc.threshold = 0.2) %>% filter(p_val_adj < 0.01) 
-
-#write.table(DEGenesMph1and3, 
-            #file= "/Users/immbio/Desktop/Project/Angelina/Cxcl13Hpb/analysis/DEgenesMph1vsMph3",
-            #sep="\t",
-            #quote=F,
-            #row.names=F,
-            #col.names=T)
 ```
 
-## scatterplot DE genes mph1 vs mph3
+#### scatterplot DE genes Mph1 vs Mph3
 ```{r scatter plot DEgenesMph1vsMph3, fig.height=15, fig.width=20}
-### table with expression levels of all genes
+## table with expression levels of all genes
 allID <- seuratMph1and3
 Idents(allID) <- allID$cluster_name
 avg.allID <- AverageExpression(allID, group.by = "cluster_name")
@@ -174,16 +142,14 @@ p_allID <- ggscatter(avg.allID, x="Mph1", y="Mph3",
 p_allID
 ```
 
-## GSEA Mph1
-```{r GSEA Mph1, fig.height=12, fig.width=12}
-## GSEA on genes upregulated in Mph1
-##adjust table
+#### GSEA Mph1
+```{r GSEA Mph1, fig.height=14, fig.width=12}
 DEGenesMph1 <- dplyr::filter(DEGenesMph1and3, cluster == "Mph1")
 DEGenesMph1 <- DEGenesMph1 %>% rownames_to_column(., var = "long") %>%
   mutate(gene=gsub("^.*\\.", "", long))  %>%
   mutate(EnsID=gsub("\\..*","", long))
 
-##GSEA Mph1
+## GSEA Mph1
 egoMph1 <- enrichGO(gene = unique(DEGenesMph1$EnsID),
                           OrgDb = org.Mm.eg.db,
                           keyType = 'ENSEMBL',
@@ -195,16 +161,14 @@ egoMph1 <- setReadable(egoMph1, OrgDb = org.Mm.eg.db)
 dotplot(egoMph1, showCategory=30)
 ```
 
-## GSEA Mph3
-```{r GSEA Mph3, fig.height=12, fig.width=12}
-## GSEA on genes upregulated in Mph3
-##adjust table
+#### GSEA Mph3
+```{r GSEA Mph3, fig.height=14, fig.width=12}
 DEGenesMph3 <- dplyr::filter(DEGenesMph1and3, cluster == "Mph3")
 DEGenesMph3 <- DEGenesMph3 %>% rownames_to_column(., var = "long") %>%
   mutate(gene=gsub("^.*\\.", "", long))  %>%
   mutate(EnsID=gsub("\\..*","", long))
 
-##GSEA Mph3
+## GSEA Mph3
 egoMph3 <- enrichGO(gene = unique(DEGenesMph3$EnsID),
                           OrgDb = org.Mm.eg.db,
                           keyType = 'ENSEMBL',
@@ -216,28 +180,26 @@ egoMph3 <- setReadable(egoMph3, OrgDb = org.Mm.eg.db)
 dotplot(egoMph3, showCategory=30)
 ```
 
-## barplot GSEA
+#### barplot GSEA
 ```{r barplot GSEA}
-#select pahtways and filter file
+## selected pathways
 selMph1 <- c("GO:0045088","GO:0019221", "GO:0032640", "GO:0034341")
 egoMph1_fil <- egoMph1%>% filter(egoMph1@result$ID %in% selMph1)
 
 egoMph1_fil_2 <- pairwise_termsim(egoMph1_fil)
-#make ggbarplot
+## make ggbarplot
 p <- ggbarplot(egoMph1_fil_2@result, x = "Description", y = "Count", fill = "#B1746FFF", color="#B1746FFF", sort.val = "asc", orientation = "horizontal")
 p
 ```
 
-
-## average Heatmap sel genes cytokine-mediated signaling pathway
-## subset CD45 positives
-```{r subset CD45pos}
-##subset CD45+ cells
+#### CD45 positive (immmune cells)
+```{r}
+## subset CD45+ cells
 seuratCD45pos <- subset(seurat, cluster_name %in% c("CD8Tcell1","CD8Tcell2","NKcell","CD4Tcell/ILC2","Neut","Mph1","Mph2","Mph3","DC","IgABcell1","IgABcell2","IgDBcell"))
 table(seuratCD45pos$cluster_name)
 ```
-
-```{r avg heatmap chemokine receptors, fig.height=8, fig.width=5}
+#### average heatmap Ccr1 Ccr2 Ccr5
+```{r avg heatmap Ccr1 Ccr2 Ccr5, fig.height=8, fig.width=5}
 Idents(seuratCD45pos) <- seuratCD45pos$cluster_name
 seurat <- seuratCD45pos
 levels(seurat)
@@ -308,15 +270,13 @@ avgHeatmap <- function(seurat, selGenes, colVecIdent, colVecCond=NULL,
 
 genesPlot <- data.frame(gene=c("Ccr1", "Ccr2" ,"Ccr5"))
 
-levels(seurat)
 colVec <- colclustername
-# colVec <- c(colPal, colPal, colPal)
-# colVec <- c("blue", "red")
+
 avgHeatmap(seurat, selGenes = genesPlot, colVecIdent = colVec)
 ```
 
-## average Heatmap sel genes cytokine-mediated signaling pathway
-```{r avg heatmap, fig.height=8, fig.width=5}
+#### average heatmap cytokine-mediated signaling pathway
+```{r avg heatmap cytokine-mediated signaling pathway, fig.height=8, fig.width=5}
 Idents(seuratMph) <- seuratMph$cluster_name
 seurat <- seuratMph
 levels(seurat)
@@ -387,171 +347,51 @@ avgHeatmap <- function(seurat, selGenes, colVecIdent, colVecCond=NULL,
 
 genesPlot <- data.frame(gene=c("Osm", "Il1b", "Ccl6", "Ccl9", "Ccl2", "Ccr1", "Cxcl2", "Ccl7", "Ccl4", "Il1rn","Myd88", "Cxcl10", "Cxcl3"))
 
-levels(seurat)
 colVec <- colclustername
-# colVec <- c(colPal, colPal, colPal)
-# colVec <- c("blue", "red")
+
 avgHeatmap(seurat, selGenes = genesPlot, colVecIdent = colVec)
 ```
 
-## violin plots mph
-```{r make violin plot mph}
+### violin plots Mph
+#### Mph subsets
+```{r violin plot Mph subset}
 Idents(seuratMph) <- seuratMph$cluster_name
 VlnPlot(object=seuratMph, features = "ENSMUSG00000058755.Osm", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000058755.Osm", pt.size = 0, cols = colcond2, split.by = "cond2")
-
 VlnPlot(object=seuratMph, features = "ENSMUSG00000027398.Il1b", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000027398.Il1b", pt.size = 0, cols = colcond2, split.by = "cond2")
-
-VlnPlot(object=seuratMph, features = "ENSMUSG00000025746.Il6", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000025746.Il6", pt.size = 0, cols = colcond2, split.by = "cond2")
 
 VlnPlot(object=seuratMph, features = "ENSMUSG00000018927.Ccl6", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000018927.Ccl6", pt.size = 0, cols = colcond2, split.by = "cond2")
-
 VlnPlot(object=seuratMph, features = "ENSMUSG00000019122.Ccl9", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000019122.Ccl9", pt.size = 0, cols = colcond2, split.by = "cond2")
-        
-VlnPlot(object=seuratMph, features = "ENSMUSG00000025804.Ccr1", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000025804.Ccr1", pt.size = 0, cols = colcond2, split.by = "cond2")
-
-VlnPlot(object=seuratMph, features = "ENSMUSG00000035385.Ccl2", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000035385.Ccl2", pt.size = 0, cols = colcond2, split.by = "cond2")
-
-VlnPlot(object=seuratMph, features = "ENSMUSG00000079227.Ccr5", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000049103.Ccr2", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000035385.Ccl2", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000025804.Ccr1", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000058427.Cxcl2", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000035373.Ccl7", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000018930.Ccl4", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000030748.Il4ra", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
+VlnPlot(object=seuratMph, features = "ENSMUSG00000026981.Il1rn", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000032508.Myd88", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000034855.Cxcl10", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000029379.Cxcl3", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000026981.Il1rn", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000027399.Il1a", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-
-VlnPlot(object=seuratMph, features = "ENSMUSG00000060586.H2-Eb1", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000073421.H2-Ab1", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000036594.H2-Aa", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000036322.H2-Ea", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000030786.Itgam", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000030789.Itgax", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000004730.Adgre1", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000015947.Fcgr1", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000026712.Mrc1", pt.size = 0, cols = colclustername) + theme(legend.position = "none")
-
 ```
 
-## violin plots mph cond
-```{r make violin plot-2 mph}
-Idents(seuratMph) <- seuratMph$cond2
-VlnPlot(object=seuratMph, features = "ENSMUSG00000058755.Osm", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000027398.Il1b", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000025746.Il6", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000018927.Ccl6", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000019122.Ccl9", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000025804.Ccr1", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000035385.Ccl2", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000025804.Ccr1", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000058427.Cxcl2", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000035373.Ccl7", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000018930.Ccl4", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000030748.Il4ra", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000032508.Myd88", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000034855.Cxcl10", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000029379.Cxcl3", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000026981.Il1rn", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000027399.Il1a", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000079227.Ccr5", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000049103.Ccr2", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-
-
-
-VlnPlot(object=seuratMph, features = "ENSMUSG00000060586.H2-Eb1", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000073421.H2-Ab1", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000036594.H2-Aa", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000036322.H2-Ea", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000030786.Itgam", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000030789.Itgax", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000004730.Adgre1", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000015947.Fcgr1", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000026712.Mrc1", pt.size = 0, cols = colcond2) + theme(legend.position = "none")
-```
-## violin plots mph cond
-```{r make split violin plot mph}
+#### cond
+```{r violin plot cond}
 Idents(seuratMph) <- seuratMph$orig.ident
 VlnPlot(object=seuratMph, features = "ENSMUSG00000058755.Osm", pt.size = 0, cols = colcond2, split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000027398.Il1b", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000025746.Il6", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
+
 VlnPlot(object=seuratMph, features = "ENSMUSG00000018927.Ccl6", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000019122.Ccl9", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000025804.Ccr1", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000035385.Ccl2", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000025804.Ccr1", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000058427.Cxcl2", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000035373.Ccl7", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000018930.Ccl4", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000030748.Il4ra", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
+VlnPlot(object=seuratMph, features = "ENSMUSG00000026981.Il1rn", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000032508.Myd88", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000034855.Cxcl10", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
 VlnPlot(object=seuratMph, features = "ENSMUSG00000029379.Cxcl3", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000026981.Il1rn", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000027399.Il1a", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000079227.Ccr5", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000049103.Ccr2", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-
-VlnPlot(object=seuratMph, features = "ENSMUSG00000060586.H2-Eb1", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000073421.H2-Ab1", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000036594.H2-Aa", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000036322.H2-Ea", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000030786.Itgam", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000030789.Itgax", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000004730.Adgre1", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000015947.Fcgr1", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
-VlnPlot(object=seuratMph, features = "ENSMUSG00000026712.Mrc1", pt.size = 0, cols = colcond2,split.by = "cond2", split.plot = "TRUE") + theme(legend.position = "none")
 ```
 
-## subset Mph and DC
-```{r subset mphDC}
-##subset macrophages and DCs
-seuratMphDC <- subset(seurat, cluster_name %in% c("Mph1","Mph2","Mph3", "DC"))
-Idents(seuratMphDC) <- seuratMphDC$cluster_name
-levels(seuratMphDC)
-DimPlot(seuratMphDC, reduction = "umap", cols = colclustername) 
-```
-
-## rerun seurat mphDC
-```{r rerun seurat mphDC}
-#rerun seurat
-seuratMphDC <- NormalizeData (object = seuratMphDC)
-seuratMphDC <- FindVariableFeatures(object = seuratMphDC)
-seuratMphDC <- ScaleData(object = seuratMphDC, verbose = TRUE)
-seuratMphDC <- RunPCA(object=seuratMphDC, npcs = 30, verbose = FALSE)
-seuratMphDC <- RunTSNE(object=seuratMphDC, reduction="pca", dims = 1:20)
-seuratMphDC <- RunUMAP(object=seuratMphDC, reduction="pca", dims = 1:20)
-seuratMphDC <- FindNeighbors(object = seuratMphDC, reduction = "pca", dims= 1:20)
-
-res <- c(0.25, 0.6, 0.8, 0.4)
-for (i in 1:length(res)) {
-  seuratMphDC <- FindClusters(object = seuratMphDC, resolution = res[i], random.seed = 1234)
-}
-
-saveRDS(seuratMphDC, file="/Users/immbio/Desktop/Project/Angelina/Cxcl13Hpb/data/mphDCrerun_seurat.rds")
-```
-
-
-## umaps clustername
-```{r plot umaps clustername MphDC embedded}
-### umaps
-Idents(seuratMphDC) <- seuratMphDC$cluster_name
-DimPlot(seuratMphDC, reduction = "umap", cols = colclustername)
-Idents(seuratMphDC) <- seuratMphDC$RNA_snn_res.0.25
-DimPlot(seuratMphDC, reduction = "umap")
-```
-
-## session info
+#### session info
 ```{r date and session info}
 date()
 sessionInfo()
