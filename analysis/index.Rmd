@@ -21,6 +21,10 @@ DE genes and GO enrichment analysis
 FRC signatures
 [link](FRCsignatures.html)
 
+### IL-33 dependent changes in fibroblasts
+Fibroblasts Cxcl13-EYFP vs Cxcl13-EYFP Il33flflf 
+[link](FibroblastAnalysis.html)
+
 ## Granuloma 
 ### GranulomaAll
 Granuloma all cells
@@ -33,3 +37,7 @@ Granuloma macrophages
 ### Interaction analysis Gran
 CellChat Gran
 [link](CellChatGran.html)
+
+### Granuloma fibroblasts
+Granuloma fibroblasts
+[link](GranFb.html)
