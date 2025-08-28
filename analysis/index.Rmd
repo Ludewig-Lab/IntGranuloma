@@ -29,3 +29,7 @@ Granuloma all cells
 ### GranulomaMph
 Granuloma macrophages
 [link](GranulomaMph.html)
+
+### Interaction analysis Gran
+CellChat Gran
+[link](CellChatGran.html)
