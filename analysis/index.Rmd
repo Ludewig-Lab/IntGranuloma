@@ -41,7 +41,3 @@ CellChat Gran
 ### Granuloma fibroblasts
 Granuloma fibroblasts
 [link](GranFb.html)
-
-### t
-t
-[link](g.html)
