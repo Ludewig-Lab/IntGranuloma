@@ -18,8 +18,6 @@ seed <- 1234
 
 #### load packages
 ```{r load packages, warning=FALSE}
-library(ExploreSCdataSeurat3)
-library(runSeurat3)
 library(Seurat)
 library(ggpubr)
 library(pheatmap)
@@ -248,7 +246,7 @@ write.table(markerGenes,
 genes <- data.frame(gene=rownames(seurat)) %>% 
   mutate(geneID=gsub("^.*\\.", "", gene))
 
-selGenes <- data.frame(geneID=c("Cpe","Ano1","Pecam1","Prox1","Lyve1","Sostdc1","Plp1","Ly6a","Acta2","Cd81","Cd34","Ncam1","Pdgfra","Pdpn", "Cd79a", "Cd79b", "Cd19", "Ighm", "Ighd", "Igha","Itgax","H2-Eb1","H2-Ab1","Cd74","Siglech","Ly6c1","Adgre1","Cx3cr1","Lyz2","Itgam","Msr1", "Arg1", "Ly6g","S100a8", "S100a9", "Il1b", "Rora", "Gata3", "Icos", "Cd4", "Klre1", "Klrk1", "Nkg7", "Gzmb","Cd8b1","Cd8a", "Trbc2", "Cd3d", "Trbc1")) %>% left_join(., genes, by="geneID")
+selGenes <- data.frame(geneID=c("Cpe","Ano1","Pecam1","Prox1","Lyve1","Sostdc1","Plp1","Ly6a","Acta2","Cd81","Cd34","Ncam1","Pdgfra","Pdpn","Cxcl13", "Il33", "Cd79a", "Cd79b", "Cd19", "Ighm", "Ighd", "Igha","Itgax","H2-Eb1","H2-Ab1","Cd74","Siglech","Ly6c1","Adgre1","Cx3cr1","Lyz2","Itgam","Msr1", "Arg1", "Ly6g","S100a8", "S100a9", "Il1b", "Rora", "Gata3", "Icos", "Cd4", "Klre1", "Klrk1", "Nkg7", "Gzmb","Cd8b1","Cd8a", "Trbc2", "Cd3d", "Trbc1")) %>% left_join(., genes, by="geneID")
 
 DotPlot(seurat, features = selGenes, group.by= "cluster_name") + RotatedAxis() + scale_color_viridis(option="E") + coord_flip()
 ```
@@ -421,6 +419,7 @@ seurat$celltype <- factor(seurat$celltype, levels=c("CD8Tcells","NKcells", "CD4T
 Idents(seurat) <- seurat$celltype
 table(seurat$celltype)
 ```
+
 #### set color vector celltypes
 ```{r set color vectors celltype}
 colcelltype <- c("#202547","#84ad83","#00A087FF","#B09C85","#B1746FFF","#8491B4FF", "#4e5a4c","#355C7D","#904D39","#725663FF","#91D1C2")

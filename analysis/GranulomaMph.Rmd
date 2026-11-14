@@ -18,8 +18,6 @@ seed <- 1234
 
 #### load packages
 ```{r load packages}
-library(ExploreSCdataSeurat3)
-library(runSeurat3)
 library(Seurat)
 library(ggpubr)
 library(pheatmap)
@@ -114,11 +112,12 @@ avg.allID <- data.frame(log1p(avg.allID$RNA)) %>%
   rownames_to_column(var="gene")
 
 ## table with genes of a certain expression frequency
-GeneFreq <- as.data.frame(GetAssayData(allID, assay = "RNA", slot = "data")) %>%
-  tibble::rownames_to_column(var="gene") %>% mutate(count=rowSums(.!=0)-1) %>%
-  mutate(countFreq=count/ncol(allID)) %>%
+GeneFreq <- as.data.frame(GetAssayData(allID, assay = "RNA", layer = "data")) %>%
+  tibble::rownames_to_column(var = "gene") %>%
+  mutate(count = rowSums(.!=0) - 1) %>%
+  mutate(countFreq = count / ncol(allID)) %>%
   dplyr::select(gene, count, countFreq) %>%
-  dplyr::filter(countFreq>=0.02)
+  dplyr::filter(countFreq >= 0.02)
 
 ## table with DEGenes to labeel - avg_log2FC > 1.5 and p_val_adj < 1e-100
 genes.to.label <- DEGenesMph1and3 %>% group_by(.,cluster) %>%
@@ -198,6 +197,7 @@ p
 seuratCD45pos <- subset(seurat, cluster_name %in% c("CD8Tcell1","CD8Tcell2","NKcell","CD4Tcell/ILC2","Neut","Mph1","Mph2","Mph3","DC","IgABcell1","IgABcell2","IgDBcell"))
 table(seuratCD45pos$cluster_name)
 ```
+
 #### average heatmap Ccr1 Ccr2 Ccr5
 ```{r avg heatmap Ccr1 Ccr2 Ccr5, fig.height=8, fig.width=5}
 Idents(seuratCD45pos) <- seuratCD45pos$cluster_name
@@ -350,6 +350,94 @@ genesPlot <- data.frame(gene=c("Osm", "Il1b", "Ccl6", "Ccl9", "Ccl2", "Ccr1", "C
 colVec <- colclustername
 
 avgHeatmap(seurat, selGenes = genesPlot, colVecIdent = colVec)
+```
+
+
+#### average heatmap M1 vs M2 markers
+```{r avg heatmap M1 vs M2, fig.height=8, fig.width=5}
+Idents(seuratMph) <- seuratMph$cluster_name
+seurat <- seuratMph
+levels(seurat)
+avgHeatmap <- function(seurat, selGenes, colVecIdent, colVecCond=NULL,
+                       ordVec=NULL, gapVecR=NULL, gapVecC=NULL,cc=FALSE,
+                       cr=FALSE, condCol=FALSE){
+  
+  selGenes <- selGenes$gene
+  
+  ## assay data
+  clusterAssigned <- as.data.frame(Idents(seurat)) %>%
+  dplyr::mutate(cell=rownames(.))
+  colnames(clusterAssigned)[1] <- "ident"
+  seuratDat <- GetAssayData(seurat)
+  
+  ## genes of interest
+  genes <- data.frame(gene=rownames(seurat)) %>% 
+    mutate(geneID=gsub("^.*\\.", "", gene)) %>% filter(geneID %in% selGenes)
+
+  ## matrix with averaged cnts per ident
+  logNormExpres <- as.data.frame(t(as.matrix(
+    seuratDat[which(rownames(seuratDat) %in% genes$gene),])))
+  logNormExpres <- logNormExpres %>% dplyr::mutate(cell=rownames(.)) %>%
+    dplyr::left_join(.,clusterAssigned, by=c("cell")) %>%
+    dplyr::select(-cell) %>% dplyr::group_by(ident) %>%
+    dplyr::summarise_all(mean)
+  logNormExpresMa <- logNormExpres %>% dplyr::select(-ident) %>% as.matrix()
+  rownames(logNormExpresMa) <- logNormExpres$ident
+  logNormExpresMa <- t(logNormExpresMa)
+  rownames(logNormExpresMa) <- gsub("^.*?\\.","",rownames(logNormExpresMa))
+  
+  ## remove genes if they are all the same in all groups
+  ind <- apply(logNormExpresMa, 1, sd) == 0
+  logNormExpresMa <- logNormExpresMa[!ind,]
+  genes <- genes[!ind,]
+
+  ## color columns according to cluster
+  annotation_col <- as.data.frame(gsub("(^.*?_)","",
+                                       colnames(logNormExpresMa)))%>%
+    dplyr::mutate(celltype=gsub("(_.*$)","",colnames(logNormExpresMa)))
+  colnames(annotation_col)[1] <- "col1"
+  annotation_col <- annotation_col %>%
+    dplyr::mutate(cond = gsub("(^[0-9]_?)","",col1)) %>%
+    dplyr::select(cond, celltype)
+  rownames(annotation_col) <- colnames(logNormExpresMa) 
+
+  ann_colors = list(
+      cond = colVecCond,
+      celltype=colclustername)
+  if(is.null(ann_colors$cond)){
+    annotation_col$cond <- NULL
+  }
+  
+  ## adjust order
+  logNormExpresMa <- logNormExpresMa[selGenes,]
+  if(is.null(ordVec)){
+    ordVec <- levels(seurat)
+  }
+  logNormExpresMa <- logNormExpresMa[,ordVec]
+
+  ## scaled row-wise
+  pheatmap(logNormExpresMa, scale="row" ,treeheight_row = 0, cluster_rows = cr, 
+         cluster_cols = cc,
+         color = colorRampPalette(c("#2166AC", "#F7F7F7", "#B2182B"))(50),
+         annotation_col = annotation_col, cellwidth=15, cellheight=10,
+         annotation_colors = ann_colors, gaps_row = gapVecR, gaps_col = gapVecC)
+}
+
+genesPlot <- data.frame(gene=c("Ly6c2", "Tnf", "Stat1", "Nos2", "Cd86", "Il12a", "Il6", "Ccr2", "Tgfb1", "Il13ra1", "Prkaa1", "Clec10a", "Il4ra", "Arg1", "Retnla", "Cx3cr1", "Il10", "Cd163", "Igf1", "Mrc1"))
+
+colVec <- colclustername
+
+avgHeatmap(seurat, selGenes = genesPlot, colVecIdent = colVec)
+```
+
+### dotplot M1 vs M2 markers
+```{r dotplot, fig.height=5, fig.width=6}
+genes <- data.frame(gene=rownames(seuratMph)) %>% 
+  mutate(geneID=gsub("^.*\\.", "", gene))
+
+selGenes <- data.frame(geneID=c("Ly6c2", "Tnf", "Stat1", "Nos2", "Cd86", "Il12a", "Il6", "Ccr2", "Tgfb1", "Il13ra1", "Prkaa1", "Clec10a", "Il4ra", "Arg1", "Retnla", "Cx3cr1", "Il10", "Cd163", "Igf1", "Mrc1")) %>% left_join(., genes, by="geneID")
+
+DotPlot(seuratMph, features = selGenes, group.by= "cluster_name") + RotatedAxis() + scale_color_viridis(option="E") + coord_flip()
 ```
 
 ### violin plots Mph
